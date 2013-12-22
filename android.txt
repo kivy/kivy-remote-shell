@@ -1,0 +1,3 @@
+title=Kivy Remote Shell
+author=tito
+orientation=portrait
