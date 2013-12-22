@@ -1,5 +1,8 @@
 __version__ = '0.1'
 
+import kivy
+kivy.require('1.8.0')
+
 # install_twisted_rector must be called before importing  and using the reactor
 from kivy.support import install_twisted_reactor
 install_twisted_reactor()
