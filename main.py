@@ -66,14 +66,16 @@ class MainScreen(Screen):
             )[20:24])
 
 
-class RemoteKivyApp(App, ServiceAppMixin):
+class RemoteKivyApp(App):
     def build(self):
         global app
         app = self
         #self.start_service('kivy-remote-shell service running...')
         #time.sleep(10)
+        print 'Creating reactor'
         self.connection = reactor.listenTCP(8000,
                 getManholeFactory(globals(), admin='kivy'))
+        print 'Reactor created'
 
     def on_pause(self):
         return True
