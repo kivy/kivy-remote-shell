@@ -71,7 +71,7 @@ class MainScreen(FloatLayout):
         ip = socket.gethostbyname(socket.gethostname())
         if ip.startswith('127.'):
             interfaces = ['eth0', 'eth1', 'eth2', 'wlan0', 'wlan1', 'wifi0',
-                    'ath0', 'ath1', 'ppp0']
+                    'tiwlan0', 'tiwlan1', 'ath0', 'ath1', 'ppp0']
             for ifname in interfaces:
                 try:
                     ip = self.get_interface_ip(ifname)
