@@ -1,5 +1,11 @@
 import kivy.utils
 from kivy import platform as PLATFORM
+
+try: # hack for Kivy pre-1.8
+    PLATFORM = PLATFORM()
+except TypeError:
+    pass
+
 if PLATFORM == 'android':
     import android
 else:
