@@ -8,7 +8,7 @@ else:
 class ServiceAppMixin(object):
     def start_service(self, arg=''):
         if PLATFORM == 'android':
-            self.service = android.AndroidService(title='Sevice example', description='service is running')
+            self.service = android.AndroidService(title='Kivy Remote Shell', description='Twisted reactor running')
             self.service.start(arg) # accepts an argument, handled to PYTHON_SERVICE_ARGUMENT
             return True
         else:

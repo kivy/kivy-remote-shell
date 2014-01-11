@@ -4,15 +4,12 @@ import kivy
 kivy.require('1.8.0')
 
 # install_twisted_rector must be called before importing  and using the reactor
-from kivy.support import install_twisted_reactor
-install_twisted_reactor()
+#from kivy.support import install_twisted_reactor
+#install_twisted_reactor()
 
 import socket
 import fcntl
 import struct
-from twisted.internet import reactor
-from twisted.cred import portal, checkers
-from twisted.conch import manhole, manhole_ssh
 from kivy.lang import Builder
 from kivy.uix.floatlayout import FloatLayout
 from kivy.properties import StringProperty
@@ -26,17 +23,6 @@ import time
 
 app = None
 
-
-def getManholeFactory(namespace, **passwords):
-    realm = manhole_ssh.TerminalRealm()
-    def getManhole(_):
-        return manhole.ColoredManhole(namespace)
-    realm.chainedProtocolFactory.protocolFactory = getManhole
-    p = portal.Portal(realm)
-    p.registerChecker(
-        checkers.InMemoryUsernamePasswordDatabaseDontUse(**passwords))
-    f = manhole_ssh.ConchFactory(p)
-    return f
 
 
 class MainScreen(Screen):
@@ -66,16 +52,11 @@ class MainScreen(Screen):
             )[20:24])
 
 
-class RemoteKivyApp(App):
+class RemoteKivyApp(App, ServiceAppMixin):
     def build(self):
         global app
         app = self
-        #self.start_service('kivy-remote-shell service running...')
-        #time.sleep(10)
-        print 'Creating reactor'
-        self.connection = reactor.listenTCP(8000,
-                getManholeFactory(globals(), admin='kivy'))
-        print 'Reactor created'
+        self.start_service('kivy-remote-shell service running...')
 
     def on_pause(self):
         return True
