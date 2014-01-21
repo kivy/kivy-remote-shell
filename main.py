@@ -48,14 +48,21 @@ class MainScreen(Screen):
                 struct.pack('256s', ifname[:15])
             )[20:24])
 
+    def on_use_service_active(self, *args, **kwargs):
+        if self.use_service:
+            # TODO: How to stop the twisted shell running?
+            app.start_service()
+        else:
+            app.stop_service()
+            twistedshell.install_shell(context=globals(), service=False)
+
 
 class RemoteKivyApp(App, ServiceAppMixin):
     def build(self):
         global app
         app = self
 
-        #twistedshell.install_shell(context=globals(), service=False)
-        self.start_service('kivy-remote-shell service running...')
+        twistedshell.install_shell(context=globals(), service=False)
 
     def on_pause(self):
         return True
