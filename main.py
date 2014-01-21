@@ -16,7 +16,7 @@ from kivy.garden import navigationdrawer
 from kivy.uix.screenmanager import Screen
 
 from service import ServiceAppMixin
-import time
+import twistedshell
 
 app = None
 
@@ -53,6 +53,8 @@ class RemoteKivyApp(App, ServiceAppMixin):
     def build(self):
         global app
         app = self
+
+        #twistedshell.install_shell(context=globals(), service=False)
         self.start_service('kivy-remote-shell service running...')
 
     def on_pause(self):
