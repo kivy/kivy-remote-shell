@@ -9,7 +9,7 @@ import fcntl
 import struct
 from kivy.lang import Builder
 from kivy.uix.floatlayout import FloatLayout
-from kivy.properties import StringProperty
+from kivy.properties import StringProperty, BooleanProperty
 from kivy.app import App
 
 from kivy.garden import navigationdrawer
@@ -24,6 +24,7 @@ app = None
 
 class MainScreen(Screen):
     lan_ip = StringProperty('127.0.0.1')
+    use_service = BooleanProperty()
 
     def __init__(self, **kwargs):
         super(MainScreen, self).__init__(**kwargs)
