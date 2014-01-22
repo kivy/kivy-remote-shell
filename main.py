@@ -17,7 +17,7 @@ from kivy.garden import navigationdrawer
 from kivy.uix.screenmanager import Screen
 
 from service import ServiceAppMixin
-import twistedshell
+import shell
 
 app = None
 
@@ -72,14 +72,14 @@ class RemoteKivyApp(App, ServiceAppMixin):
     def start_shell(self, service=False):
         if service: # For now on, use the Service!
             if hasattr(self, '_twisted_connection'):
-                twistedshell.uninstall_shell(service=False, connections=[self._twisted_connection])
+                shell.uninstall_shell(service=False, connections=[self._twisted_connection])
                 del self._twisted_connection
             self.start_service()
 
         else: # For now on, use the Activity!
             if hasattr(self, 'service'):
                 self.stop_service()
-            self._twisted_connection = twistedshell.install_shell(context=globals(), service=False)
+            self._twisted_connection = shell.install_shell(context=globals(), service=False)
 
 
 if __name__ == '__main__':
