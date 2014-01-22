@@ -11,6 +11,7 @@ from kivy.lang import Builder
 from kivy.uix.floatlayout import FloatLayout
 from kivy.properties import StringProperty, BooleanProperty
 from kivy.app import App
+from kivy.clock import Clock
 
 from kivy.garden import navigationdrawer
 from kivy.uix.screenmanager import Screen
@@ -49,21 +50,14 @@ class MainScreen(Screen):
                 struct.pack('256s', ifname[:15])
             )[20:24])
 
-    def on_use_service_active(self, *args, **kwargs):
-        if self.use_service:
-            # TODO: How to stop the twisted shell running?
-            app.start_service()
-        else:
-            app.stop_service()
-            twistedshell.install_shell(context=globals(), service=False)
+    def on_use_service(self, instance, value):
+        app.start_shell(service=value)
 
 
 class RemoteKivyApp(App, ServiceAppMixin):
     def build(self):
         global app
         app = self
-
-        twistedshell.install_shell(context=globals(), service=False)
 
     def on_pause(self):
         return True
@@ -74,6 +68,19 @@ class RemoteKivyApp(App, ServiceAppMixin):
     def on_stop(self):
         if hasattr(self, 'service'):
             self.stop_service()
+
+    def start_shell(self, service=False):
+        if service: # For now on, use the Service!
+            if hasattr(self, '_twisted_connection'):
+                twistedshell.uninstall_shell(service=False, connections=[self._twisted_connection])
+                del self._twisted_connection
+            self.start_service()
+
+        else: # For now on, use the Activity!
+            if hasattr(self, 'service'):
+                self.stop_service()
+            self._twisted_connection = twistedshell.install_shell(context=globals(), service=False)
+
 
 if __name__ == '__main__':
     RemoteKivyApp().run()
