@@ -6,5 +6,5 @@ os.sys.path.insert(0, _parentdir)
 # get the argument passed
 arg = os.getenv('PYTHON_SERVICE_ARGUMENT')
 
-import twistedshell
-twistedshell.install_shell(context=globals(), service=True)
+import shell
+shell.install_shell(context=globals(), service=True)

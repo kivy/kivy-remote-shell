@@ -50,7 +50,7 @@ def install_shell(context={}, service=False):
         from twisted.internet import reactor
 
         Logger.debug('Shell: Creating twisted reactor. Service: %s', service)
-        connection = reactor.listenTCP(8001,
+        connection = reactor.listenTCP(8000,
             getManholeFactory(context, admin='kivy')
         )
 
