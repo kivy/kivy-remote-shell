@@ -49,16 +49,16 @@ def install_shell(context={}, service=False):
 
         from twisted.internet import reactor
 
-        print 'Creating twisted reactor. Service:', service
+        Logger.debug('Shell: Creating twisted reactor. Service: %s', service)
         connection = reactor.listenTCP(8001,
             getManholeFactory(context, admin='kivy')
         )
 
         if service:
             # service-based have no implicit reactor running.
-            print 'Twisted reactor starting'
+            Logger.debug('Shell: Twisted reactor starting')
             reactor.run()
-            print 'Twisted reactor stopped'
+            Logger.debug('Shell: Twisted reactor stopped')
         else:
             return connection
 
