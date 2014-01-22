@@ -12,6 +12,8 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.properties import StringProperty, BooleanProperty
 from kivy.app import App
 from kivy.clock import Clock
+import kivy
+kivy.require('1.8.0')
 
 from kivy.garden import navigationdrawer
 from kivy.uix.screenmanager import Screen
