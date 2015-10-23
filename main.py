@@ -97,5 +97,11 @@ class RemoteKivyApp(App):
                 getManholeFactory(globals(), admin='kivy'))
         return MainScreen()
 
+    def on_pause(self):
+        return True
+
+    def on_resume(self):
+        return True
+
 if __name__ == '__main__':
     RemoteKivyApp().run()
