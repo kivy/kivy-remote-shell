@@ -17,16 +17,12 @@ Instructions
 Compile for android
 -------------------
 
-You must have setup http://github.com/kivy/python-for-android
 
 ```
+$ pip install buildozer --user
 $ git clone git://github.com/kivy/kivy-remote-shell
-$ cd python-for-android
-$ ./distribute.sh -m 'openssl pycrypto pyasn1 pyjnius twisted kivy'
-$ cd dist/default
-$ ./build.py --package org.kivy.sshshell --name "Kivy Remote Shell" \
-  --version 1 --dir ../../../kivy-remote-shell/ \
-  --icon ../../../kivy-remote-shell/icon.png --permission INTERNET debug installd
+$ cd kivy-remote-shell
+$ buildozer android_new debug deploy run logcat
 ```
 
 If you want to compile a release version for sharing, just replace `debug
