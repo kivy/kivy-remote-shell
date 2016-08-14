@@ -25,5 +25,8 @@ $ cd kivy-remote-shell
 $ buildozer android_new debug deploy run logcat
 ```
 
+Pre-built debug apk available at http://bit.ly/KivyRemote2
+
+
 If you want to compile a release version for sharing, just replace `debug
 installd` by `release`, and sign the APK!
