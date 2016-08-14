@@ -11,17 +11,27 @@ package.domain = org.kivy
 
 # indicate where the source code is living
 source.dir = .
-source.include_exts = py,png
+source.include_exts = py,png,kv,rst
 
 # search the version information into the source code
 version.regex = __version__ = '(.*)'
 version.filename = %(source.dir)s/main.py
 
 # requirements of the app
-requirements = pycrypto,pyasn1,pyjnius,twisted,kivy
+requirements = hostpython2,android,cryptography,pyasn1,pyjnius,twisted,kivy,docutils,pygments,cffi
 
 # android specific
-android.permissions = INTERNET
+android.permissions = INTERNET, WAKE_LOCK, CAMERA, VIBRATE, ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION, SEND_SMS, MAKE_CALL
+
+#android.sdk=21
+
+#android.api=22
+
+android.wakelock=True
+#orientation=all
+
+[buildozer]
+log_level = 2
 
 [buildozer]
 log_level = 2

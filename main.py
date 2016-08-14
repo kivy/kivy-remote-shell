@@ -15,40 +15,10 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.properties import StringProperty
 from kivy.app import App
 
+from kivy.garden import navigationdrawer
+from kivy.uix.screenmanager import Screen
 app = None
 
-Builder.load_string('''
-<MainScreen>:
-    Image:
-        source: 'background.png'
-        allow_stretch: True
-        keep_ratio: False
-    BoxLayout:
-        size_hint_y: .2
-        pos_hint: {'top': 1}
-        canvas:
-            Color:
-                rgba: .1, .1, .1, .1
-            Rectangle:
-                pos: self.pos
-                size: self.size
-        Widget
-        Image:
-            source: 'icon.png'
-            mipmap: True
-            size_hint_x: None
-            width: 100
-        Label:
-            text: 'Remote Kivy'
-            font_size: 30
-            size_hint_x: None
-            width: self.texture_size[0] + 20
-        Widget
-    Label:
-        text: 'ssh -p8000 admin@{0}'.format(root.lan_ip)
-        font_size: 20
-        size_hint_y: .8
-''')
 
 def getManholeFactory(namespace, **passwords):
     realm = manhole_ssh.TerminalRealm()
@@ -62,7 +32,7 @@ def getManholeFactory(namespace, **passwords):
     return f
 
 
-class MainScreen(FloatLayout):
+class MainScreen(Screen):
     lan_ip = StringProperty('127.0.0.1')
 
     def __init__(self, **kwargs):
@@ -95,7 +65,9 @@ class RemoteKivyApp(App):
         app = self
         self.connection = reactor.listenTCP(8000,
                 getManholeFactory(globals(), admin='kivy'))
-        return MainScreen()
+
+    def on_pause(self):
+        return True
 
 if __name__ == '__main__':
     RemoteKivyApp().run()

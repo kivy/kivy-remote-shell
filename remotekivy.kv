@@ -1,0 +1,76 @@
+
+<MainScreen>:
+    Label:
+        text: 'ssh -p8000 admin@{0}'.format(root.lan_ip)
+        font_size: '20sp'
+        size_hint_y: .8
+
+<CommandScreen@Screen>
+    RstDocument
+        background_color: .891, .891, .891, 1
+        text: open('plyer_command_list.rst').read()
+
+<ShellScreen@Screen>
+
+<NavigationButton@Button>
+    on_release: app.root.ids.manager.current = self.text.lower()
+
+<NavigationScreen@BoxLayout>
+    orientation: 'vertical'
+    NavigationButton
+        text: 'Remote'
+    NavigationButton
+        text: 'Plyer'
+    NavigationButton
+        text: 'Console'
+
+<TopBar@BoxLayout>
+    size_hint_y: .2
+    pos_hint: {'top': 1}
+    canvas:
+        Color:
+            rgba: .1, .1, .1, .1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    Button:
+        size_hint_x: None
+        width: self.height
+        border: 0, 0, 0, 0
+        background_normal: 'ham_icon.png'
+        background_down: 'ham_icon.png'
+        opacity: 1 if self.state == 'normal' else .5
+        on_state: app.root.toggle_state()
+    Widget
+    Image:
+        source: 'icon.png'
+        mipmap: True
+        size_hint_x: None
+        width: '100dp'
+    Label:
+        text: 'Remote Kivy'
+        font_size: '30sp'
+        size_hint_x: None
+        width: self.texture_size[0] + sp(20)
+    Widget
+
+
+NavigationDrawer
+    NavigationScreen
+    Screen
+        Image:
+            source: 'background.png'
+            allow_stretch: True
+            keep_ratio: False
+        BoxLayout
+            orientation: 'vertical'
+            TopBar
+            ScreenManager
+                id: manager
+                MainScreen
+                    name: 'remote'
+                CommandScreen
+                    name: 'plyer'
+                ShellScreen
+                    name: 'console'
+
