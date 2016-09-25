@@ -137,8 +137,8 @@ E-Mail
 
 Example::
 
-    import webbrowser
-    webbrowser.open('mailto://')
+    from plyer import email
+    email.send(recipient='abc@gmail.com', subject='Message')
 
 Call
 ----
@@ -147,8 +147,8 @@ Call
 
 Example::
 
-    import webbrowser
-    webbrowser.open('tel://9013159973')
+    from plyer import call
+    call.makecall('9013159973')
 
 
 Accelerometer
@@ -184,7 +184,7 @@ Example::
     gyroscope.orientation
     gyroscope.disable()
 
-orientation
+Orientation
 -----------
 
 Example::
