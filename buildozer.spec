@@ -21,7 +21,7 @@ version.filename = %(source.dir)s/main.py
 requirements = hostpython2,android,cryptography,pyasn1,pyjnius,twisted,kivy,docutils,pygments,cffi
 
 # android specific
-android.permissions = INTERNET, WAKE_LOCK, CAMERA, VIBRATE, ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION, SEND_SMS, MAKE_CALL
+android.permissions = INTERNET, WAKE_LOCK, CAMERA, VIBRATE, ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION, SEND_SMS, CALL_PRIVILEGED, CALL_PHONE
 
 #android.sdk=21
 
