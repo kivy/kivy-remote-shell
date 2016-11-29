@@ -22,6 +22,7 @@ Compile for android
 $ pip install buildozer --user
 $ git clone git://github.com/kivy/kivy-remote-shell
 $ cd kivy-remote-shell
+$ pip install -r requirements.txt
 $ buildozer android_new debug deploy run logcat
 ```
 

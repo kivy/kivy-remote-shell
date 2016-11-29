@@ -1,0 +1,8 @@
+docutils==0.12
+Kivy==1.9.1
+Kivy-Garden==0.1.4
+pyasn1==0.1.9
+pycrypto==2.6.1
+requests==2.11.1
+Twisted==15.4.0
+zope.interface==4.3.2
