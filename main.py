@@ -60,6 +60,9 @@ class MainScreen(Screen):
 
 
 class RemoteKivyApp(App):
+    def on_pause(self):
+        return True
+    
     def build(self):
         global app
         app = self
