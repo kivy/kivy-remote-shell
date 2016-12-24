@@ -32,7 +32,11 @@ class MainScreen(Screen):
     def __init__(self, **kwargs):
         super(MainScreen, self).__init__(**kwargs)
 
-        ip = socket.gethostbyname(socket.gethostname())
+        try:
+            ip = socket.gethostbyname(socket.gethostname())
+        except socket.gaierror:
+            ip = socket.gethostbyname(socket.gethostname() + '.local')
+
         if ip.startswith('127.'):
             interfaces = ['eth0', 'eth1', 'eth2', 'wlan0', 'wlan1', 'wifi0',
                     'tiwlan0', 'tiwlan1', 'ath0', 'ath1', 'ppp0']
