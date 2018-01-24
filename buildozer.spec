@@ -18,7 +18,7 @@ version.regex = __version__ = '(.*)'
 version.filename = %(source.dir)s/main.py
 
 # requirements of the app
-requirements = hostpython2,android,cryptography,pyasn1,pyjnius,twisted,kivy,docutils,pygments,cffi
+requirements = hostpython2,android,cryptography,pyasn1,pyjnius,pycrypto,twisted,kivy,docutils,pygments,cffi
 
 # android specific
 android.permissions = INTERNET, WAKE_LOCK, CAMERA, VIBRATE, ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION, SEND_SMS, CALL_PRIVILEGED, CALL_PHONE
@@ -30,6 +30,11 @@ android.permissions = INTERNET, WAKE_LOCK, CAMERA, VIBRATE, ACCESS_COARSE_LOCATI
 android.wakelock=True
 #orientation=all
 
+# (str) Android logcat filters to use
+android.logcat_filters = *:S python:D
+
 [buildozer]
 log_level = 2
 warn_on_root = 1
+
+
