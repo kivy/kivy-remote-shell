@@ -146,7 +146,7 @@ class RemoteKivyApp(App):
         global app
         app = self
         self.connection = reactor.listenTCP(8000,
-                getManholeFactory(globals(), admin='kivy'))
+                getManholeFactory(admin='kivy'))
 
     def on_pause(self):
         return True
