@@ -18,18 +18,21 @@ version.regex = __version__ = '(.*)'
 version.filename = %(source.dir)s/main.py
 
 # requirements of the app
-requirements = hostpython3==3.7.8,android,cryptography,pyasn1,pyjnius,bcrypt,attrs,twisted,kivy,docutils,pygments,cffi
+requirements = hostpython3==3.6.8,android,cryptography,pyasn1,pyjnius,bcrypt,attrs,twisted,kivy,docutils,pygments,cffi
 
 # android specific
-android.permissions = INTERNET, WAKE_LOCK, CAMERA, VIBRATE, ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION, SEND_SMS, CALL_PRIVILEGED, CALL_PHONE
+android.permissions = INTERNET, WAKE_LOCK, CAMERA, VIBRATE, ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION, SEND_SMS, CALL_PRIVILEGED, CALL_PHONE, BLUETOOTH
 
 #android.sdk=21
 
 #android.api=22
 android.accept_sdk_license=True
-
 android.wakelock=True
-#orientation=all
+orientation=portrait
+fullscreen=True
+p4a.branch = develop
+
+#presplash.filename= 
 
 [buildozer]
 log_level = 2
