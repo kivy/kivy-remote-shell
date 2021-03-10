@@ -160,7 +160,7 @@ Example::
 
     from plyer import accelerometer
     accelerometer.enable()
-    accelerator.acceleration
+    accelerometer.acceleration
 
 Battery
 --------

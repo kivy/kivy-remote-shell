@@ -1,0 +1,42 @@
+on: [push, pull_request]
+name: Android
+jobs:
+  Integration:
+    strategy:
+      matrix:
+        os:
+          - 'ubuntu-latest'
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - uses: actions/checkout@v2
+    - uses: actions/cache@v2
+      with:
+        path: |
+          ~/.buildozer
+          .buildozer
+        key: ${{ hashFiles('buildozer.spec') }}
+
+    - name: Setup environment
+      run: |
+        pip install buildozer
+        pip install Cython
+    - run: buildozer --help
+    - name: SDK, NDK and p4a download
+      run: |
+        sed -i.bak "s/# android.accept_sdk_license = False/android.accept_sdk_license = True/" buildozer.spec
+        buildozer android p4a -- --help
+    - name: Install Linux dependencies
+      if: matrix.os == 'ubuntu-latest'
+      run: sudo apt -y install automake
+    - name: buildozer android debug
+      run: |
+        touch main.py
+        buildozer android debug
+    - uses: actions/upload-artifact@v2
+      with:
+        path: bin/*.apk
+
