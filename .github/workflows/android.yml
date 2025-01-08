@@ -33,7 +33,7 @@ jobs:
         uses: ArtemSBulgakov/buildozer-action@v1
         id: buildozer
         with:
-          command: sudo apt-get update; sudo apt-get -y install libtool wget curl; pip3 install --user --upgrade Cython==0.29.33; yes | buildozer android debug
+          command: sudo apt-get update; sudo apt-get -y install libtool wget curl; pip3 install --user --upgrade Cython==0.29.33; git clone https://github.com/kivy/python-for-android.git -b release-2022.12.20 --single-branch; rm -rf python-for-android/pythonforandroid/recipes/zope_interface/fix-init.patch; yes | buildozer android debug
           buildozer_version: master
 
       - name: Upload artifacts
