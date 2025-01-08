@@ -30,7 +30,7 @@ android.accept_sdk_license=True
 android.wakelock=True
 orientation=portrait
 fullscreen=True
-p4a.branch = release-2022.12.20
+p4a.branch = release-2023.09.16
 
 #presplash.filename= 
 
