@@ -1,42 +1,43 @@
-on: [push, pull_request]
-name: Android
+name: CI
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
 jobs:
-  Integration:
-    strategy:
-      matrix:
-        os:
-          - 'ubuntu-latest'
-    runs-on: ${{ matrix.os }}
+  build:
+    runs-on: ubuntu-latest
+
     steps:
-    - name: Setup python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-    - uses: actions/checkout@v2
-    - uses: actions/cache@v2
-      with:
-        path: |
-          ~/.buildozer
-          .buildozer
-        key: ${{ hashFiles('buildozer.spec') }}
+      - uses: actions/checkout@v2
 
-    - name: Setup environment
-      run: |
-        pip install buildozer
-        pip install Cython
-    - run: buildozer --help
-    - name: SDK, NDK and p4a download
-      run: |
-        sed -i.bak "s/# android.accept_sdk_license = False/android.accept_sdk_license = True/" buildozer.spec
-        buildozer android p4a -- --help
-    - name: Install Linux dependencies
-      if: matrix.os == 'ubuntu-latest'
-      run: sudo apt -y install automake
-    - name: buildozer android debug
-      run: |
-        touch main.py
-        buildozer android debug
-    - uses: actions/upload-artifact@v2
-      with:
-        path: bin/*.apk
+      # used to cache dependencies with a timeout
+      - name: Get Date
+        id: get-date
+        run: |
+          echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
+        shell: bash
 
+      - name: Cache Buildozer global directory
+        uses: actions/cache@v2
+        with:
+          path: .buildozer_global
+          key: buildozer-global-${{ hashFiles('buildozer.spec') }} # Replace with your path
+
+      - uses: actions/cache@v2
+        with:
+          path: .buildozer
+          key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashFiles('buildozer.spec') }}
+
+      - name: Build with Buildozer
+        uses: ArtemSBulgakov/buildozer-action@v1
+        id: buildozer
+        with:
+          command: sudo apt-get update; sudo apt-get -y install libtool wget curl; pip3 install --user --upgrade Cython==0.29.33; git clone https://github.com/kivy/python-for-android.git -b release-2022.12.20 --single-branch; rm -rf python-for-android/pythonforandroid/recipes/zope_interface/fix-init.patch; yes | buildozer android debug
+          buildozer_version: master
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: package
+          path: ${{ steps.buildozer.outputs.filename }}
