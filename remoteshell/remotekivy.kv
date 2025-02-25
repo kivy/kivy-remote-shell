@@ -11,9 +11,13 @@
         text: open('plyer_command_list.rst').read()
 
 <ShellScreen@Screen>
+    #KivyConsole
 
 <NavigationButton@Button>
+    opacity: 1
     on_release: app.root.ids.manager.current = self.text.lower()
+    size_hint_y: None
+    height: sp(64)
 
 <NavigationScreen@BoxLayout>
     orientation: 'vertical'
@@ -23,9 +27,13 @@
         text: 'Plyer'
     NavigationButton
         text: 'Console'
+    NavigationButton
+        text: 'Python Interpretter'
+    Widget
 
 <TopBar@BoxLayout>
-    size_hint_y: .2
+    size_hint_y: None
+    height: sp(64)
     pos_hint: {'top': 1}
     canvas:
         Color:
@@ -37,13 +45,13 @@
         size_hint_x: None
         width: self.height
         border: 0, 0, 0, 0
-        background_normal: 'ham_icon.png'
-        background_down: 'ham_icon.png'
+        background_normal: 'data/ham_icon.png'
+        background_down: 'data/ham_icon.png'
         opacity: 1 if self.state == 'normal' else .5
         on_state: app.root.toggle_state()
     Widget
     Image:
-        source: 'icon.png'
+        source: 'data/icon.png'
         mipmap: True
         size_hint_x: None
         width: '100dp'
@@ -59,7 +67,7 @@ NavigationDrawer
     NavigationScreen
     Screen
         Image:
-            source: 'background.png'
+            source: 'data/background.png'
             allow_stretch: True
             keep_ratio: False
         BoxLayout
@@ -69,8 +77,22 @@ NavigationDrawer
                 id: manager
                 MainScreen
                     name: 'remote'
-                # CommandScreen
-                #     name: 'plyer'
+                CommandScreen
+                    name: 'plyer'
                 ShellScreen
                     name: 'console'
-
+                    on_enter:
+                        if not self.children:\
+                        from libs.kivy_console import KivyConsole as ShellConsole;\
+                        sc = ShellConsole();\
+                        sc.font_name = 'RobotoMono-Regular.ttf';\
+                        self.add_widget(sc)
+                Screen
+                    name: 'python interpretter'
+                    on_enter:
+                        if not self.children:\
+                        from libs.kivy_python_console import KivyConsole as PythonConsole;\
+                        pc = PythonConsole();\
+                        pc.font_name = 'RobotoMono-Regular.ttf';\
+                        pc.style_name = 'monokai';\
+                        self.add_widget(pc)

@@ -6,3 +6,5 @@ pycrypto==2.6.1
 requests==2.32.2
 Twisted==24.7.0
 #zope.interface==4.3.2
+more_itertools==2.2
+plyer==master

@@ -1,5 +1,6 @@
 [app]
 
+icon=%(source.dir)s/data/icon.png
 # title of the application
 title = Kivy Remote Shell
 
@@ -10,7 +11,7 @@ package.name = remoteshell
 package.domain = org.kivy
 
 # indicate where the source code is living
-source.dir = .
+source.dir = ../../remoteshell
 source.include_exts = py,png,kv,rst
 
 # search the version information into the source code
@@ -18,7 +19,7 @@ version.regex = __version__ = '(.*)'
 version.filename = %(source.dir)s/main.py
 
 # requirements of the app
-requirements = android,cryptography,pyasn1,bcrypt,attrs,twisted,kivy,docutils,pygments,cffi
+requirements = android,cryptography,pyasn1,bcrypt,attrs,twisted,kivy,docutils,pygments,cffi, more_itertools,plyer
 
 # android specific
 android.permissions = INTERNET, WAKE_LOCK, CAMERA, VIBRATE, ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION, SEND_SMS, CALL_PRIVILEGED, CALL_PHONE, BLUETOOTH
@@ -27,13 +28,20 @@ android.permissions = INTERNET, WAKE_LOCK, CAMERA, VIBRATE, ACCESS_COARSE_LOCATI
 
 #android.api=22
 android.accept_sdk_license=True
+
+# (str) Android logcat filters to use
+android.logcat_filters = *:S python,mediaserver,SDL:D
 android.wakelock=True
+
 orientation=portrait
 fullscreen=True
 p4a.branch = develop
+p4a.local_recipes = p4a_recipes
 
-#presplash.filename= 
+#presplash.filename=
 
 [buildozer]
 log_level = 2
 warn_on_root = 1
+#bin_dir = ../..//buildozer/bin
+#build_dir = ../../.buildozer

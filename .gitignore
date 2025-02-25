@@ -1,2 +1,4 @@
 .buildozer
+*.pyc
+__pycache__/
 bin
