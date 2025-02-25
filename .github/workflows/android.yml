@@ -23,7 +23,7 @@ jobs:
       - name: Setup environment
         run: |
           pip install buildozer
-          pip install Cython
+          pip install Cython setuptools
       - name: Install Linux dependencies
         if: matrix.os == 'ubuntu-latest'
         run: sudo apt -y install libltdl-dev automake
