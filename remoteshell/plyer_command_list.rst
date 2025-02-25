@@ -17,7 +17,7 @@ Command list
    -  ACCELERATOR_
    -  GYROSCOPE_
    -  CALL_
-   
+
 TTS(Text to speech)
 -------------------
 
@@ -27,33 +27,6 @@ Example::
     tts.speak('text')
 
 top_
-
-GPS
----
-
-.. _GPS:
-
-.. note::
-
-   This will work only on versions before android 6.0 .
-   
-   For android 6.0 + the coder needs to explictly ask permissions.
-
-
-Here is an example of the usage of gps::
-
-    from plyer import gps
-    coordinate = 0
-    def print_locations(**kwargs):
-        global coordinate
-        coordinate = kwargs
-        
-    gps.configure(on_location=print_locations)
-    gps.start()
-    # later
-    print coordinate
-    gps.stop()
-
 
 Notification
 ------------
@@ -207,4 +180,3 @@ IrBlaster
 Example::
 
     from plyer import irblaster
-

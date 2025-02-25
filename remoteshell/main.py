@@ -16,8 +16,10 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.properties import StringProperty
 from kivy.app import App
 
-from kivy.garden import navigationdrawer
+from libs.navigationdrawer import NavigationDrawer
 from kivy.uix.screenmanager import Screen
+from kivy.core.window import Window
+Window.softinput_mode = 'below_target'
 app = None
 
 #+---[RSA 3072]----+
@@ -120,7 +122,10 @@ class MainScreen(Screen):
     def __init__(self, **kwargs):
         super(MainScreen, self).__init__(**kwargs)
 
-        ip = socket.gethostbyname(socket.gethostname())
+        try:
+            ip = socket.gethostbyname(socket.gethostname())
+        except Exception as Error:
+            ip = socket.gethostbyname('localhost')
         if ip.startswith('127.'):
             interfaces = ['eth0', 'eth1', 'eth2', 'wlan0', 'wlan1', 'wifi0',
                     'tiwlan0', 'tiwlan1', 'ath0', 'ath1', 'ppp0']

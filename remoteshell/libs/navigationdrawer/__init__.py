@@ -445,7 +445,7 @@ class NavigationDrawer(StencilView):
         # Clear existing side panel entries
         if len(self._main_panel.children) > 0:
             for child in self._main_panel.children:
-                self._main_panel.remove(child)
+                self._main_panel.remove_widget(child)
         # Set new side panel
         self._main_panel.add_widget(widget)
         self.main_panel = widget
