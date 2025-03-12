@@ -18,7 +18,7 @@ version.regex = __version__ = '(.*)'
 version.filename = %(source.dir)s/main.py
 
 # requirements of the app
-requirements = android,cryptography,pyasn1,bcrypt,attrs,twisted,kivy,docutils,pygments,cffi
+requirements = android,cryptography,pyasn1,pyjnius,bcrypt,pycrypto,attrs,twisted,kivy,docutils,pygments,cffi
 
 # android specific
 android.permissions = INTERNET, WAKE_LOCK, CAMERA, VIBRATE, ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION, SEND_SMS, CALL_PRIVILEGED, CALL_PHONE, BLUETOOTH
@@ -34,6 +34,11 @@ p4a.branch = develop
 
 #presplash.filename= 
 
+# (str) Android logcat filters to use
+android.logcat_filters = *:S python:D
+
 [buildozer]
 log_level = 2
 warn_on_root = 1
+
+
